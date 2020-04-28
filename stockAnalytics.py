@@ -9,7 +9,7 @@ import os
 
 
 class StockAnalytics:
-	def __init__(self, stockLabel, timePerPriceCheck = 5, url = "http://www.finance.yahoo.com/quote/"):
+	def __init__(self, stockLabel, timePerPriceCheck = 30, url = "http://www.finance.yahoo.com/quote/"):
 		self.stockLabel = stockLabel.upper()
 		self.timePerPriceCheck = timePerPriceCheck #seconds
 		self.url = url + stockLabel.upper()
@@ -44,13 +44,13 @@ class StockAnalytics:
 			stockLabelFile.writerow([self.getStockPrice(), dt_string, month, day, year])
 		return True
 
-	def collectStockPrices(self, totalTime = 30, timeUnit = "S"):
-		if timeUnit.upper() is "M":
-			endTime = time.time() + 60 * totalTime
-		elif timeUnit.upper() is "H":
-			endTime = time.time() + 3600 * totalTime
-		else:
+	def collectStockPrices(self, totalTime, timeUnit = "H"):
+		if timeUnit.upper() is "S":
 			endTime = time.time() + totalTime
+		elif timeUnit.upper() is "M":
+			endTime = time.time() + 60 * totalTime
+		else:
+			endTime = time.time() + 3600 * totalTime
 		while(time.time() < endTime):
 			time.sleep(self.timePerPriceCheck)
 			self.writeCSVFile()
@@ -59,19 +59,30 @@ class StockAnalytics:
 		return self.getStockPrice()
 
 def main():
-	StockList = [StockAnalytics("TSLA"), StockAnalytics("DIS")]
+	print("Starting collection")
+	StockList = list()
+	StockList.append(StockAnalytics("F"))
+	StockList.append(StockAnalytics("AMZN"))
+	StockList.append(StockAnalytics("NFLX"))
+	StockList.append(StockAnalytics("GOOG"))
+	StockList.append(StockAnalytics("AAPL"))
+	StockList.append(StockAnalytics("TSLA"))
+	StockList.append(StockAnalytics("CVX"))
+
 	threadList = list()
 	for stock in StockList:
-		thread = threading.Thread(target=stock.collectStockPrices, args=(30,))
+		thread = threading.Thread(target=stock.collectStockPrices, args = (7,"H"))
 		threadList.append(thread)
 		thread.start()
 
-	for threads in threadList:
-		threads.join()
-
 
 if __name__ == '__main__':
-	main()
+	x = datetime.today()
+	y=x.replace(day=x.day+1,hour = 6, minute = 15, second=0,microsecond=0)
+	delta_t = y-x
+	secs = delta_t.seconds+1
+	t = threading.Timer(secs,main)
+	t.start()
 
 '''
 if TSLA.writeCSVFile():
