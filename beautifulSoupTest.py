@@ -37,7 +37,10 @@ def writeStockFile(label, price):
 	finally:
 		today = datetime.now()
 		dt_string = today.strftime("%H:%M")
-		stockLabelFile.writerow([price, dt_string])
+		year = today.year
+		month = today.month
+		day = today.day
+		stockLabelFile.writerow([price, dt_string, month, day, year])
 	return 0
 def main():
 	#print(getStockLabelHeader())
