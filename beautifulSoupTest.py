@@ -26,14 +26,13 @@ def getStockLabelHeader():
 
 def writeStockFile(label, price):
 	try:
-		try:
-			stockLabelFile = csv.writer(open('./csvFiles/' + stockLabel + ".csv", "a"))
-		except:
-			os.mkdir("./csvFiles")
-			stockLabelFile = csv.writer(open('./csvFiles/' + stockLabel + ".csv", "a"))
-		stockLabelFile.writerow([price])
+		stockLabelFile = csv.writer(open('./csvFiles/' + stockLabel + ".csv", "a"))
+	except IOError as err:
+		os.mkdir("./csvFiles")
+		stockLabelFile = csv.writer(open('./csvFiles/' + stockLabel + ".csv", "a"))
 	except:
 		return -1
+	stockLabelFile.writerow([price])
 	return 0
 def main():
 	#print(getStockLabelHeader())
