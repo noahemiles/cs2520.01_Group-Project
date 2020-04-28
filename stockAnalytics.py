@@ -44,7 +44,7 @@ class StockAnalytics:
 			stockLabelFile.writerow([self.getStockPrice(), dt_string, month, day, year])
 		return True
 
-	def collectStockPrices(self, totalTime, timeUnit = "S"):
+	def collectStockPrices(self, totalTime = 30, timeUnit = "S"):
 		if timeUnit.upper() is "M":
 			endTime = time.time() + 60 * totalTime
 		elif timeUnit.upper() is "H":
@@ -59,18 +59,16 @@ class StockAnalytics:
 		return self.getStockPrice()
 
 def main():
+	StockList = [StockAnalytics("TSLA"), StockAnalytics("DIS")]
+	threadList = list()
+	for stock in StockList:
+		thread = threading.Thread(target=stock.collectStockPrices, args=(30,))
+		threadList.append(thread)
+		thread.start()
 
-	TSLA = StockAnalytics("TSLA")
-	DIS = StockAnalytics("DIS")
+	for threads in threadList:
+		threads.join()
 
-	thread1 = threading.Thread(target=TSLA.collectStockPrices, args=(30,))
-	thread2 = threading.Thread(target=DIS.collectStockPrices, args=(30,))
-	
-	thread1.start()
-	thread2.start()
-
-	thread1.join()
-	thread2.join()
 
 if __name__ == '__main__':
 	main()
