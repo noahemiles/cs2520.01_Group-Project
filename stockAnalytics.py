@@ -58,12 +58,22 @@ class StockAnalytics:
 	def __str__(self):
 		return self.getStockPrice()
 
+def main():
 
-TSLA = StockAnalytics("TSLA")
-TSLA.collectStockPrices(30)
+	TSLA = StockAnalytics("TSLA")
+	DIS = StockAnalytics("DIS")
 
-DIS = StockAnalytics("DIS")
-DIS.collectStockPrices(30)
+	thread1 = threading.Thread(target=TSLA.collectStockPrices, args=(30,))
+	thread2 = threading.Thread(target=DIS.collectStockPrices, args=(30,))
+	
+	thread1.start()
+	thread2.start()
+
+	thread1.join()
+	thread2.join()
+
+if __name__ == '__main__':
+	main()
 
 '''
 if TSLA.writeCSVFile():
