@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import urllib.request
 import csv
 import os
+from datetime import datetime
 
 stockLabel = input("Enter Stock Label: ").upper()
 page = urllib.request.urlopen("http://www.finance.yahoo.com/quote/"+stockLabel)
@@ -30,9 +31,13 @@ def writeStockFile(label, price):
 	except IOError as err:
 		os.mkdir("./csvFiles")
 		stockLabelFile = csv.writer(open('./csvFiles/' + stockLabel + ".csv", "a"))
-	except:
+	except Exception as ex:
+		print(ex)
 		return -1
-	stockLabelFile.writerow([price])
+	finally:
+		today = datetime.now()
+		dt_string = today.strftime("%H:%M")
+		stockLabelFile.writerow([price, dt_string])
 	return 0
 def main():
 	#print(getStockLabelHeader())
