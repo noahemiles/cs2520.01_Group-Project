@@ -57,7 +57,7 @@ class StockAnalytics:
 			self.writeCSVFile()
 
 	def __str__(self):
-		return self.getStockPrice()
+		return self.getStockLabel() + ": " + self.getStockPrice()
 
 def dayCollection():
 	print("Starting collection:", datetime.now())
@@ -77,12 +77,12 @@ def dayCollection():
 		thread.start()
 
 def autoStart():	
-	x = datetime.today()
-	y=x.replace(day=x.day+1,hour = 6, minute = 15, second=0,microsecond=0)
-	delta_t = y-x
+	current_time = datetime.today()
+	timeToStart = current_time.replace(day=current_time.day+1,hour=6,minute=15,second=0,microsecond=0)
+	delta_t = timeToStart - current_time
 	secs = delta_t.seconds+1
-	t = threading.Timer(secs,datacollection)
-	t.start()
+	waitThread = threading.Timer(secs,datacollection)
+	waitThread.start()
 
 def main():
 	autoStart()
@@ -90,7 +90,10 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	
 '''
+tests:
+
 if TSLA.writeCSVFile():
 	print("File Write Success")
 else:
