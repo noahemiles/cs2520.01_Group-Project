@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import request
 import csv
 import os
 from datetime import datetime

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bsoup
 from urllib.request import urlopen
 from datetime import datetime
+import requests
 import threading
 import time
 import csv
@@ -21,7 +22,7 @@ class StockAnalytics:
 		return self.url
 
 	def getPage(self):
-		return urlopen(self.url)
+		return requests.get(self.url).text
 
 	def getStockPrice(self):
 		return bsoup(self.getPage(),"html.parser").find('div', {'class':'My(6px) Pos(r) smartphone_Mt(6px)'}).find('span').get_text()
@@ -58,8 +59,8 @@ class StockAnalytics:
 	def __str__(self):
 		return self.getStockPrice()
 
-def main():
-	print("Starting collection")
+def dayCollection():
+	print("Starting collection:", datetime.now())
 	StockList = list()
 	StockList.append(StockAnalytics("F"))
 	StockList.append(StockAnalytics("AMZN"))
@@ -75,15 +76,20 @@ def main():
 		threadList.append(thread)
 		thread.start()
 
-
-if __name__ == '__main__':
+def autoStart():	
 	x = datetime.today()
 	y=x.replace(day=x.day+1,hour = 6, minute = 15, second=0,microsecond=0)
 	delta_t = y-x
 	secs = delta_t.seconds+1
-	t = threading.Timer(secs,main)
+	t = threading.Timer(secs,datacollection)
 	t.start()
 
+def main():
+	autoStart()
+
+
+if __name__ == '__main__':
+	main()
 '''
 if TSLA.writeCSVFile():
 	print("File Write Success")
