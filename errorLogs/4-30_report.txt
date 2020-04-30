@@ -1,0 +1,14 @@
+Starting collection: 2020-04-30 06:15:00.678055
+Exception in thread Thread-2:
+Traceback (most recent call last):
+  File "/usr/lib64/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/usr/lib64/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "stockAnalytics.py", line 57, in collectStockPrices
+    self.writeCSVFile()
+  File "stockAnalytics.py", line 45, in writeCSVFile
+    stockLabelFile.writerow([self.getStockPrice(), dt_string, month, day, year])
+  File "stockAnalytics.py", line 28, in getStockPrice
+    return bsoup(self.getPage(),"html.parser").find('div', {'class':'My(6px) Pos(r) smartphone_Mt(6px)'}).find('span').get_text()
+AttributeError: 'NoneType' object has no attribute 'find'

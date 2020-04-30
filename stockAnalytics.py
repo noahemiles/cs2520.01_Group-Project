@@ -81,7 +81,7 @@ def autoStart():
 	timeToStart = current_time.replace(day=current_time.day+1,hour=6,minute=15,second=0,microsecond=0)
 	delta_t = timeToStart - current_time
 	secs = delta_t.seconds+1
-	waitThread = threading.Timer(secs,datacollection)
+	waitThread = threading.Timer(secs,dayCollection)
 	waitThread.start()
 
 def main():
@@ -90,7 +90,7 @@ def main():
 
 if __name__ == '__main__':
 	main()
-	
+
 '''
 tests:
 
