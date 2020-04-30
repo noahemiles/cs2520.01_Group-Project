@@ -85,8 +85,10 @@ def autoStart():
 	waitThread.start()
 
 def main():
-	autoStart()
-
+	if input("Manual Start = 0\nAuto Start = 1") is 0:
+		autoStart()
+	else:
+		dayCollection()
 
 if __name__ == '__main__':
 	main()
