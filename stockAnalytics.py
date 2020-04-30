@@ -60,6 +60,7 @@ class StockAnalytics:
 		return self.getStockLabel() + ": " + self.getStockPrice()
 
 def dayCollection():
+	os.system('cls' if os.name == 'nt' else 'clear')
 	print("Starting collection:", datetime.now())
 	StockList = list()
 	StockList.append(StockAnalytics("F"))
