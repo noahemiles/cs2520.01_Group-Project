@@ -63,20 +63,20 @@ def dayCollection():
 	os.system('cls' if os.name == 'nt' else 'clear')
 	print("Starting collection:", datetime.now())
 	StockList = list()
-	StockList.append(StockAnalytics("F"))
+	StockList.append(StockAnalytics("DIS"))
 	StockList.append(StockAnalytics("AMZN"))
 	StockList.append(StockAnalytics("NFLX"))
 	StockList.append(StockAnalytics("GOOG"))
 	StockList.append(StockAnalytics("AAPL"))
 	StockList.append(StockAnalytics("TSLA"))
 	StockList.append(StockAnalytics("CVX"))
-
+	'''
 	threadList = list()
 	for stock in StockList:
 		thread = threading.Thread(target=stock.collectStockPrices, args = (7,"H"))
 		threadList.append(thread)
 		thread.start()
-
+'''
 def autoStart():	
 	current_time = datetime.today()
 	timeToStart = current_time.replace(day=current_time.day+1,hour=6,minute=15,second=0,microsecond=0)
@@ -86,7 +86,7 @@ def autoStart():
 	waitThread.start()
 
 def main():
-	if input("Manual Start = 0\nAuto Start = 1") is 0:
+	if input("Manual Start = 0\nAuto Start = 1\n\tInput: ") is 0:
 		autoStart()
 	else:
 		dayCollection()
