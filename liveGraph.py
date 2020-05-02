@@ -33,6 +33,6 @@ class liveGraph:
 		plt.show()
 
 
-obj1 = liveGraph('data')
-obj1.graph()
+#obj1 = liveGraph('data')
+#obj1.graph()
 
