@@ -4,11 +4,12 @@ from datetime import time
 
 class Graph:
 	def __plotGraph(self, label, times, values):
-		plt.plot(times,values)
+		plt.style.use('ggplot')
+		plt.plot(times,values, color='k',label = f'{label} Stock Value')
 		plt.xlabel("Time (PST)")
 		plt.ylabel("Value ($)")
 		plt.title(label.upper())
-		plt.legend([f'{label} Stock Value'])
+		plt.legend()
 		plt.show()
 
 	def checkStock(self, stockLabel):
@@ -28,3 +29,4 @@ class Graph:
 
 		except FileNotFoundError as e:
 			print(e)
+
