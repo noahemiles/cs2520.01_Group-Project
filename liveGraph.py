@@ -24,8 +24,8 @@ class liveGraph:
 			plt.ylabel("Value ($)")
 			plt.title(f'{self.stockLabel.upper()} Stock')
 			plt.legend(loc = 'upper left')
-		except:
-			print("Incorrect File Path")
+		except Exception as ex:
+			print(ex,"Incorrect File Path")
 
 	def graph(self):	
 		ani = FuncAnimation(plt.gcf(), self.update, interval=1000)

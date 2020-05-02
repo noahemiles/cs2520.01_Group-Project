@@ -64,6 +64,9 @@ class StockAnalytics:
 	def __str__(self):
 		return self.getStockLabel() + ": " + self.getStockPrice()
 
+def create(label):
+	return StockAnalytics(label)
+
 def dayCollection():
 	os.system('cls' if os.name == 'nt' else 'clear')
 	print("Starting collection:", datetime.now())
