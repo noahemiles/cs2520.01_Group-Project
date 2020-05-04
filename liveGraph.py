@@ -15,7 +15,7 @@ class liveGraph:
 
 	def update(self, i):
 		try:
-			data = pd.read_csv(f'{self.stockLabel}.csv') # Update File Path
+			data = pd.read_csv(f'./{self.stockLabel}.csv') # Update File Path
 			x = data['x_value']
 			y = data['total_1']
 			plt.cla() # clear axis
