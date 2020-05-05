@@ -32,7 +32,17 @@ class liveGraph:
 		plt.tight_layout()
 		plt.show()
 
+def autoStart():	
+	current_time = datetime.today()
+	try:
+		timeToStart = current_time.replace(day=current_time.day+1,hour=6,minute=15,second=0,microsecond=0)
+	except ValueError as newMonth:
+		timeToStart = current_time.replace(month=current_time.month+1,day=1,hour=6,minute=15,second=0,microsecond=0)
+	delta_t = timeToStart - current_time
+	secs = delta_t.seconds+1
+	waitThread = threading.Timer(secs,dayCollection)
+	waitThread.start()
 
-#obj1 = liveGraph('data')
-#obj1.graph()
+obj1 = liveGraph('tsla')
+obj1.graph()
 
