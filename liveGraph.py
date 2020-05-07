@@ -21,6 +21,7 @@ class liveGraph:
 		y = data['colB'] # Grab data from second column of csv
 		plt.cla()        # clear axis for next graph
 		plt.plot(x,y, label = f'{self.stockLabel} Stock') 
+		plt.xticks([])
 		plt.xlabel("Time (PST)")
 		plt.ylabel("Value ($)")
 		plt.title(f'{self.stockLabel.upper()} Stock')
@@ -31,5 +32,6 @@ class liveGraph:
 		plt.tight_layout()
 		plt.show()
 
-
+obj1 = liveGraph('cvx')
+obj1.graph()
 
