@@ -65,7 +65,7 @@ class StockAnalytics:
 			day = today.day
 			try:
 				#file write row
-				stockLabelFile.writerow([self.getStockPrice(), dt_string, month, day, year])
+				stockLabelFile.writerow([month, day, year, dt_string, self.getStockPrice()])
 			except AttributeError as writeError:
 				return False
 		return True
