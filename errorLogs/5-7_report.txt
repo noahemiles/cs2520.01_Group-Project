@@ -1,0 +1,89 @@
+Thread 15 "python3" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7fffac84d700 (LWP 18099)]
+0x00007fffc6b07197 in _gtk_css_value_compute () from /lib64/libgtk-3.so.0
+(gdb) backtrace
+#0  0x00007fffc6b07197 in _gtk_css_value_compute () from /lib64/libgtk-3.so.0
+#1  0x00007fffc6aff198 in gtk_css_static_style_compute_value ()
+   from /lib64/libgtk-3.so.0
+#2  0x00007fffc6aea4d2 in _gtk_css_lookup_resolve () from /lib64/libgtk-3.so.0
+#3  0x00007fffc6aff0c0 in gtk_css_static_style_new_compute ()
+   from /lib64/libgtk-3.so.0
+#4  0x00007fffc6aecb35 in gtk_css_node_real_update_style ()
+   from /lib64/libgtk-3.so.0
+#5  0x00007fffc6aeb8e4 in gtk_css_node_ensure_style.part ()
+   from /lib64/libgtk-3.so.0
+#6  0x00007fffc6aeb8b7 in gtk_css_node_ensure_style.part ()
+   from /lib64/libgtk-3.so.0
+#7  0x00007fffc6aec625 in gtk_css_node_validate_internal ()
+   from /lib64/libgtk-3.so.0
+#8  0x00007fffc6aec67b in gtk_css_node_validate_internal ()
+   from /lib64/libgtk-3.so.0
+#9  0x00007fffc6aec67b in gtk_css_node_validate_internal ()
+   from /lib64/libgtk-3.so.0
+#10 0x00007fffc6aec67b in gtk_css_node_validate_internal ()
+   from /lib64/libgtk-3.so.0
+#11 0x00007fffc6ad2a46 in gtk_container_idle_sizer () from /lib64/libgtk-3.so.0
+#12 0x00007fffcd7263bd in g_closure_invoke () from /lib64/libgobject-2.0.so.0
+#13 0x00007fffcd739945 in signal_emit_unlocked_R ()
+   from /lib64/libgobject-2.0.so.0
+#14 0x00007fffcd742a06 in g_signal_emit_valist ()
+   from /lib64/libgobject-2.0.so.0
+#15 0x00007fffcd743043 in g_signal_emit () from /lib64/libgobject-2.0.so.0
+#16 0x00007fffc9d88042 in gdk_frame_clock_paint_idle ()
+   from /lib64/libgdk-3.so.0
+#17 0x00007fffc9d727fc in gdk_threads_dispatch () from /lib64/libgdk-3.so.0
+#18 0x00007fffcd44b141 in g_timeout_dispatch () from /lib64/libglib-2.0.so.0
+#19 0x00007fffcd44a67d in g_main_context_dispatch ()
+   from /lib64/libglib-2.0.so.0
+#20 0x00007fffcd44aa48 in g_main_context_iterate.isra ()
+   from /lib64/libglib-2.0.so.0
+#21 0x00007fffcd44ad72 in g_main_loop_run () from /lib64/libglib-2.0.so.0
+#22 0x00007fffc6b9de1d in gtk_main () from /lib64/libgtk-3.so.0
+#23 0x00007fffdb1c104e in ffi_call_unix64 () from /lib64/libffi.so.6
+#24 0x00007fffdb1c0a0f in ffi_call () from /lib64/libffi.so.6
+#25 0x00007fffcdbce425 in pygi_invoke_c_callable ()
+--Type <RET> for more, q to quit, c to continue without paging--c
+o
+#26 0x00007fffcdbcff3c in pygi_function_cache_invoke () from /usr/lib64/python3.6/site-packages/gi/_gi.cpython-36m-x86_64-linux-gnu.so
+#27 0x00007ffff797e993 in PyObject_Call () from /lib64/libpython3.6m.so.1.0
+#28 0x00007ffff7a2c4ab in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#29 0x00007ffff797cbe8 in _PyEval_EvalCodeWithName () from /lib64/libpython3.6m.so.1.0
+#30 0x00007ffff79b65e0 in fast_function () from /lib64/libpython3.6m.so.1.0
+#31 0x00007ffff79faa32 in call_function () from /lib64/libpython3.6m.so.1.0
+#32 0x00007ffff7a2aa6a in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#33 0x00007ffff79b642a in fast_function () from /lib64/libpython3.6m.so.1.0
+#34 0x00007ffff79faa32 in call_function () from /lib64/libpython3.6m.so.1.0
+#35 0x00007ffff7a2aa6a in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#36 0x00007ffff7a04da7 in PyEval_EvalCodeEx () from /lib64/libpython3.6m.so.1.0
+#37 0x00007ffff7a05dde in function_call () from /lib64/libpython3.6m.so.1.0
+#38 0x00007ffff797e993 in PyObject_Call () from /lib64/libpython3.6m.so.1.0
+#39 0x00007ffff7a2c4ab in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#40 0x00007ffff797cbe8 in _PyEval_EvalCodeWithName () from /lib64/libpython3.6m.so.1.0
+#41 0x00007ffff797e043 in _PyFunction_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#42 0x00007ffff797e5ee in _PyObject_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#43 0x00007ffff7989a80 in _PyObject_Call_Prepend () from /lib64/libpython3.6m.so.1.0
+#44 0x00007ffff797e993 in PyObject_Call () from /lib64/libpython3.6m.so.1.0
+#45 0x00007ffff7a2c4ab in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#46 0x00007ffff797cbe8 in _PyEval_EvalCodeWithName () from /lib64/libpython3.6m.so.1.0
+#47 0x00007ffff79b65e0 in fast_function () from /lib64/libpython3.6m.so.1.0
+#48 0x00007ffff79faa32 in call_function () from /lib64/libpython3.6m.so.1.0
+#49 0x00007ffff7a2aa6a in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#50 0x00007ffff797dc0a in _PyFunction_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#51 0x00007ffff797e5ee in _PyObject_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#52 0x00007ffff7989a80 in _PyObject_Call_Prepend () from /lib64/libpython3.6m.so.1.0
+#53 0x00007ffff797e993 in PyObject_Call () from /lib64/libpython3.6m.so.1.0
+#54 0x00007ffff7a2c4ab in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#55 0x00007ffff79b642a in fast_function () from /lib64/libpython3.6m.so.1.0
+#56 0x00007ffff79faa32 in call_function () from /lib64/libpython3.6m.so.1.0
+#57 0x00007ffff7a2aa6a in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#58 0x00007ffff79b642a in fast_function () from /lib64/libpython3.6m.so.1.0
+#59 0x00007ffff79faa32 in call_function () from /lib64/libpython3.6m.so.1.0
+#60 0x00007ffff7a2aa6a in _PyEval_EvalFrameDefault () from /lib64/libpython3.6m.so.1.0
+#61 0x00007ffff797dc0a in _PyFunction_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#62 0x00007ffff797e5ee in _PyObject_FastCallDict () from /lib64/libpython3.6m.so.1.0
+#63 0x00007ffff7989a80 in _PyObject_Call_Prepend () from /lib64/libpython3.6m.so.1.0
+#64 0x00007ffff797e993 in PyObject_Call () from /lib64/libpython3.6m.so.1.0
+#65 0x00007ffff7a9ac32 in t_bootstrap () from /lib64/libpython3.6m.so.1.0
+#66 0x00007ffff7a48274 in pythread_wrapper () from /lib64/libpython3.6m.so.1.0
+#67 0x00007ffff76632de in start_thread () from /lib64/libpthread.so.0
+#68 0x00007ffff6c0a133 in clone () from /lib64/libc.so.6
