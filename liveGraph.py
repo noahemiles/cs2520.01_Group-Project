@@ -32,6 +32,4 @@ class liveGraph:
 		plt.tight_layout()
 		plt.show()
 
-obj1 = liveGraph('cvx')
-obj1.graph()
 
