@@ -9,6 +9,7 @@ class liveGraph:
 	def __init__ (self, stockLabel):
 		plt.style.use('ggplot') # style of graph
 		self.stockLabel = stockLabel.upper()
+		plt.gcf().canvas.set_window_title(stockLabel)
 
 	def update(self, i):
 		try:
