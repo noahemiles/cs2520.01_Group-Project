@@ -9,8 +9,8 @@ class liveGraph:
 	def __init__ (self, stockLabel):
 		plt.style.use('ggplot') # style of graph
 		self.stockLabel = stockLabel.upper()
-		plt.gcf().canvas.set_window_title(stockLabel)
-
+		#plt.gcf().canvas.set_window_title(stockLabel)
+		plt.figure(num=self.stockLabel)
 	def update(self, i):
 		try:
 			data = pd.read_csv(f'./csvFiles/{self.stockLabel}.csv', names = ['colA','colB'], header=None) # Update File Path
