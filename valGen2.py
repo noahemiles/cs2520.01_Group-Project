@@ -4,7 +4,7 @@ import time
 from bs4 import BeautifulSoup
 import urllib.request
 import pandas as pd
-import request
+import requests
 import os
 from datetime import datetime
 
