@@ -6,47 +6,47 @@ import threading
 import time
 import csv
 import os
+from liveGraph import liveGraph
 
 
 
 class StockAnalytics:
 	def __init__(self, stockLabel, timePerPriceCheck = 30, url = "http://www.finance.yahoo.com/quote/"):
-	'''
-	Sets stock label, the time interval to check stock price, and the url of the webpage
-	'''
+		'''
+		Sets stock label, the time interval to check stock price, and the url of the webpage
+		'''
 		self.stockLabel = stockLabel.upper()
 		self.timePerPriceCheck = timePerPriceCheck #seconds
 		self.url = url + stockLabel.upper()
 
 	def getStockLabel(self):
-
-	'''
-	Returns the stock label 
-	'''
+		'''
+		Returns the stock label 
+		'''
 		return self.stockLabel
 
 	def getUrl(self):
-	'''
-	Returns the url of the webpage
-	'''
+		'''
+		Returns the url of the webpage
+		'''
 		return self.url
 
 	def getPage(self):
-	'''
-	Returns the webpage text of the url
-	'''
+		'''
+		Returns the webpage text of the url
+		'''
 		return requests.get(self.url).text
 
 	def getStockPrice(self):
-	'''
-	Parses the webpage for the stock price 
-	'''
+		'''
+		Parses the webpage for the stock price 
+		'''
 		return bsoup(self.getPage(),"html.parser").find('div', {'class':'My(6px) Pos(r) smartphone_Mt(6px)'}).find('span').get_text()
 
 	def writeCSVFile(self):
-	'''
-	Writes stock information to csv file
-	'''
+		'''
+		Writes stock information to csv file
+		'''
 		try:
 			stockLabelFile = csv.writer(open('./csvFiles/' + self.getStockLabel() + ".csv", "a"))
 		except IOError as err:
@@ -72,11 +72,11 @@ class StockAnalytics:
 
 
 	def collectStockPrices(self, totalTime, timeUnit = "H"):
-	'''
-	Controls how long it is to write to the csv file
+		'''
+		Controls how long it is to write to the csv file
 
-	Default time unit is HOURS
-	'''
+		Default time unit is HOURS
+		'''
 		if timeUnit.upper() is "S":
 			endTime = time.time() + totalTime
 		elif timeUnit.upper() is "M":
@@ -89,10 +89,10 @@ class StockAnalytics:
 				print("Error Writing:",self.getStockLabel(),"|",datetime.now())
 
 	def __str__(self):
-	'''
-	@Override 
-	Prints Stock Label : Stock Price
-	'''
+		'''
+		@Override 
+		Prints Stock Label : Stock Price
+		'''
 		return self.getStockLabel() + ": " + self.getStockPrice()
 
 
@@ -103,21 +103,27 @@ def dayCollection():
 	os.system('cls' if os.name == 'nt' else 'clear')
 	print("Starting collection:", datetime.now())
 	StockList = list()
-	StockList.append(StockAnalytics("DIS"))
-	StockList.append(StockAnalytics("AMZN"))
-	StockList.append(StockAnalytics("NFLX"))
-	StockList.append(StockAnalytics("GOOG"))
-	StockList.append(StockAnalytics("AAPL"))
-	StockList.append(StockAnalytics("TSLA"))
+	#StockList.append(StockAnalytics("DIS"))
+	#StockList.append(StockAnalytics("AMZN"))
+	#StockList.append(StockAnalytics("NFLX"))
+	#StockList.append(StockAnalytics("GOOG"))
+	#StockList.append(StockAnalytics("AAPL"))
+	#StockList.append(StockAnalytics("TSLA"))
 	StockList.append(StockAnalytics("CVX"))
 	
 	threadList = list()
 	for stock in StockList:
+		graph = liveGraph(stock.getStockLabel())
 		thread = threading.Thread(target=stock.collectStockPrices, args = (7,"H"))
+		graphThread = threading.Thread(target=graph.graph)
 		threadList.append(thread)
 		thread.start()
+		graphThread.start()	
 
-def autoStart():	
+def autoStart():
+	'''
+	automatically starts stock collection process at 6:15am pst
+	'''	
 	current_time = datetime.today()
 	try:
 		timeToStart = current_time.replace(day=current_time.day+1,hour=6,minute=15,second=0,microsecond=0)
@@ -131,9 +137,11 @@ def autoStart():
 def main():
 	#manual start meaning, starting immediately 
 	#auto start meaning, starting the next day at 6am
-	if input("Manual Start = 0\nAuto Start = 1\n\tInput: ") is 0:
+	if int(input("Manual Start = 0\nAuto Start = 1\n\tInput: ")) is 0:
+		print("Manual Collection")
 		dayCollection()
 	else:
+		print("Automatic Collection")
 		autoStart()
 
 if __name__ == '__main__':

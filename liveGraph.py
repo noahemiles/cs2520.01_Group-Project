@@ -12,7 +12,7 @@ class liveGraph:
 
 	def update(self, i):
 		try:
-			data = pd.read_csv(f'./{self.stockLabel}.csv', names = ['colA','colB'], header=None) # Update File Path
+			data = pd.read_csv(f'./csvFiles/{self.stockLabel}.csv', names = ['colA','colB'], header=None) # Update File Path
 			x = data['colA'] # Grab data from first column of CSV
 			y = data['colB'] # Grab data from second column of csv
 			plt.cla()        # clear axis for next graph
@@ -30,6 +30,4 @@ class liveGraph:
 		plt.show()
 
 
-obj1 = liveGraph('data') 
-obj1.graph()
 
