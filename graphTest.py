@@ -1,5 +1,3 @@
-import random
-from itertools import count
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -7,18 +5,17 @@ from matplotlib.animation import FuncAnimation
 
 
 class liveGraph:
+
 	def __init__ (self, stockLabel):
-		plt.style.use('ggplot')
-		self.x_vals = []
-		self.y_vals = []
+		plt.style.use('ggplot') # style of graph
 		self.stockLabel = stockLabel.upper()
 
 	def update(self, i):
 		try:
 			data = pd.read_csv(f'./{self.stockLabel}.csv', names = ['colA','colB'], header=None) # Update File Path
-			x = data['colA']
-			y = data['colB']
-			plt.cla() # clear axis
+			x = data['colA'] # Grab data from first column of CSV
+			y = data['colB'] # Grab data from second column of csv
+			plt.cla()        # clear axis for next graph
 			plt.plot(x,y, label = f'{self.stockLabel} Stock') 
 			plt.xlabel("Time (PST)")
 			plt.ylabel("Value ($)")
@@ -33,6 +30,6 @@ class liveGraph:
 		plt.show()
 
 
-obj1 = liveGraph('data')
+obj1 = liveGraph('data') 
 obj1.graph()
 
