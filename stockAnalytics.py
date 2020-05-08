@@ -98,7 +98,7 @@ class StockAnalytics:
 
 def dayCollection():
 	'''
-	Collects stock data from all stock labels in StockList for 7 hours by default
+	Collects stock data from all stock labels in StockList for a set amount of time
 	'''
 	os.system('cls' if os.name == 'nt' else 'clear')
 	print("Starting collection:", datetime.now())
