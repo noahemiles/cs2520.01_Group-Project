@@ -7,7 +7,7 @@ from matplotlib.animation import FuncAnimation
 class liveGraph:
 
 	def __init__ (self, stockLabel):
-		plt.style.use('ggplot') # style of graph
+		#plt.style.use('ggplot') # style of graph
 		self.stockLabel = stockLabel.upper()
 		#plt.gcf().canvas.set_window_title(stockLabel)
 		plt.figure(num=self.stockLabel)
