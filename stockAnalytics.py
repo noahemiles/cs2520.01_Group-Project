@@ -6,6 +6,7 @@ import threading
 import time
 import csv
 import os
+import sys
 from liveGraph import liveGraph
 
 
@@ -77,9 +78,9 @@ class StockAnalytics:
 
 		Default time unit is HOURS
 		'''
-		if timeUnit.upper() is "S":
+		if timeUnit.upper() == "S":
 			endTime = time.time() + totalTime
-		elif timeUnit.upper() is "M":
+		elif timeUnit.upper() == "M":
 			endTime = time.time() + 60 * totalTime
 		else:
 			endTime = time.time() + 3600 * totalTime
@@ -108,9 +109,9 @@ def dayCollection():
 	#StockList.append(StockAnalytics("NFLX"))
 	#StockList.append(StockAnalytics("GOOG"))
 	#StockList.append(StockAnalytics("AAPL"))
-	#StockList.append(StockAnalytics("TSLA"))
-	StockList.append(StockAnalytics("CVX"))
-	
+	StockList.append(StockAnalytics("TSLA"))
+	#StockList.append(StockAnalytics("NVDA"))
+
 	threadList = list()
 	for stock in StockList:
 		graph = liveGraph(stock.getStockLabel())
@@ -118,8 +119,7 @@ def dayCollection():
 		graphThread = threading.Thread(target=graph.graph)
 		threadList.append(stockThread)
 		stockThread.start()
-		graphThread.start()	
-
+		graphThread.start()
 def autoStart():
 	'''
 	automatically starts stock collection process at 6:15am pst
@@ -134,19 +134,41 @@ def autoStart():
 	waitThread = threading.Timer(secs,dayCollection)
 	waitThread.start()
 
+def manualStockCheck():
+	first = True
+	priceList = []
+	for arg in sys.argv:
+		if first:
+			first = False
+		else:
+			try:
+				label = arg.upper()
+				price = StockAnalytics(label).getStockPrice()
+				print(f"{label :>5}:\t{price}\t@ {datetime.now()}")
+				priceList.append([label,price])
+			except (AttributeError, IndexError) as inputError:
+				print(f"Invalid Stock Label: {arg}.\nSyntax: python3 {sys.argv[0]} LABEL")
+	print(priceList)
+
 def main():
-	#manual start meaning, starting immediately 
-	#auto start meaning, starting the next day at 6am
-	if int(input("Manual Start = 0\nAuto Start = 1\n\tInput: ")) is 0:
-		print("Manual Collection")
-		dayCollection()
+
+	if len(sys.argv) == 1:
+		#manual start meaning, starting immediately 
+		#auto start meaning, starting the next day at 6am
+		if int(input("Manual Start = 0\nAuto Start = 1\n\tInput: ")) == 0:
+			print("Manual Collection")
+			dayCollection()
+		else:
+			print("Automatic Collection")
+			autoStart()
 	else:
-		print("Automatic Collection")
-		autoStart()
+		manualStockCheck()
+
+
 
 if __name__ == '__main__':
 	main()
-	
+
 
 '''
 tests:
