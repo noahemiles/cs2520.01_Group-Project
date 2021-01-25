@@ -4,4 +4,4 @@
 
 # Required Libraries: pandas and matplotlib
 
-# python3 stockAnalytics.py {stockLabels to live print to console}**optional**
+# python3 stockAnalytics.py {stockLabel(s)... (to live print to console)}**optional**
