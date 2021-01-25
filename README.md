@@ -1,6 +1,6 @@
-# cs2520.01_Group-Project
+# Python Stock Analytics Project
 
-# Stock analysis Project using web scraping
+# Stock analysis Project using web scraping from finance.yahoo.com
 
 # Required Libraries: pandas and matplotlib
 
