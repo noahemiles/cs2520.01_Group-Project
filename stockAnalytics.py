@@ -136,15 +136,19 @@ def autoStart():
 
 def manualStockCheck():
 	first = True
+	priceList = []
 	for arg in sys.argv:
 		if first:
 			first = False
 		else:
 			try:
-				print(f"{arg.upper()}:\t{StockAnalytics(arg.upper()).getStockPrice()}\t@ {datetime.now()}")
+				label = arg.upper()
+				price = StockAnalytics(label).getStockPrice()
+				print(f"{label :>5}:\t{price}\t@ {datetime.now()}")
+				priceList.append([label,price])
 			except (AttributeError, IndexError) as inputError:
 				print(f"Invalid Stock Label: {arg}.\nSyntax: python3 {sys.argv[0]} LABEL")
-
+	print(priceList)
 
 def main():
 
